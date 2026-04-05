@@ -1,4 +1,21 @@
-export default function Taskrow({ task }) {
+import { memo } from "react"
+
+// export default function Taskrow({ task }) {
+
+//     const statusClassName = task.status.replace(" ", "").toLowerCase()
+
+//     return (
+
+//         <tr>
+//             <td>{task.title}</td>
+//             <td className={statusClassName}>{task.status}</td>
+//             <td>{new Date(task.createdAt).toLocaleDateString()}</td>
+//         </tr>
+
+//     )
+// }
+
+const Taskrow = memo(({ task }) => {
 
     const statusClassName = task.status.replace(" ", "").toLowerCase()
 
@@ -11,4 +28,6 @@ export default function Taskrow({ task }) {
         </tr>
 
     )
-}
+})
+
+export default Taskrow
