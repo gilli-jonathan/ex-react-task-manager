@@ -1,0 +1,11 @@
+.todo {
+    background-color: rgba(247, 26, 26, 0.336);
+}
+
+.doing {
+    background-color: rgba(255, 255, 0, 0.329);
+}
+
+.done {
+    background-color: rgba(55, 156, 60, 0.37);
+}
