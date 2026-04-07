@@ -1,12 +1,17 @@
-import { useParams } from "react-router-dom"
-import { useContext } from "react"
+import { useParams, useNavigate } from "react-router-dom"
+import { useContext, useState } from "react"
 import { TasksContext } from "../contexts/GlobalContext"
+import Modal from '../components/Modal'
 
 export default function TaskDetails() {
 
     const { id } = useParams()
-    const { tasks } = useContext(TasksContext)
+    const navigate = useNavigate()
+    const { tasks, removeTask } = useContext(TasksContext)
     const task = tasks.find(t => t.id === parseInt(id))
+
+    const [showModal, setShowModal] = useState(false)
+
 
     if (!task) {
         return (
@@ -14,9 +19,16 @@ export default function TaskDetails() {
         )
     }
 
-    const handleDelete = () => {
-        console.log('il bottone di elimina task funge');
+    const handleDelete = async () => {
+        // console.log('il bottone di elimina task funge');
+        try {
+            await removeTask(task.id)
+            alert('task eliminata per sempre hahah')
+            navigate('/')
+        } catch (error) {
+            alert(error.message)
 
+        }
 
     }
 
@@ -29,7 +41,16 @@ export default function TaskDetails() {
             <p><strong>STATO:</strong>{task.status}</p>
             <p><strong>DATA:</strong>{new Date(task.createdAt).toLocaleDateString()}</p>
 
-            <button onClick={handleDelete}>elimina la task</button>
+            <button onClick={() => setShowModal(true)}>elimina la task</button>
+
+            {/* modale per eliminare la task */}
+            <Modal
+                title='attenzione eliminazione in corso'
+                content={<p>vecchio stai attento a quello che fai</p>}
+                show={showModal}
+                onClose={() => setShowModal(false)}
+                onConfirm={handleDelete}
+            />
         </>
     )
 }
