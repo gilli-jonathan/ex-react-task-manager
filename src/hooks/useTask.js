@@ -26,7 +26,6 @@ export default function useTask() {
     }
 
     const removeTask = async tasksId => {
-
         const response = await fetch(`${VITE_API_URL}/tasks/${tasksId}`, { method: 'DELETE' })
         const { success, message } = await response.json()
         if (!success) throw new Error(message)
@@ -34,7 +33,18 @@ export default function useTask() {
         setTasks(prev => prev.filter(t => t.id !== tasksId))
     }
 
-    const updateTask = () => { }
+    const updateTask = async updateTask => {
+        const response = await fetch(`${VITE_API_URL}/tasks/${updateTask.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updateTask)
+        })
+
+        const { success, message, task } = await response.json()
+        if (!success) throw new Error(message)
+
+        setTasks(prev => prev.map((t => t.id === task.id ? task : t)))
+    }
 
 
 

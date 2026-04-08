@@ -2,16 +2,17 @@ import { useParams, useNavigate } from "react-router-dom"
 import { useContext, useState } from "react"
 import { TasksContext } from "../contexts/GlobalContext"
 import Modal from '../components/Modal'
+import EditModal from "../components/EditModal"
 
 export default function TaskDetails() {
 
     const { id } = useParams()
     const navigate = useNavigate()
-    const { tasks, removeTask } = useContext(TasksContext)
+    const { tasks, removeTask, updateTask } = useContext(TasksContext)
     const task = tasks.find(t => t.id === parseInt(id))
 
     const [showModal, setShowModal] = useState(false)
-
+    const [showEditModal, setShowEditModal] = useState(false)
 
     if (!task) {
         return (
@@ -29,7 +30,17 @@ export default function TaskDetails() {
             alert(error.message)
 
         }
+    }
 
+    const handleUpdate = async (updateTaskData) => {
+
+        try {
+            await updateTask(updateTaskData)
+            setShowEditModal(false)
+        } catch (error) {
+            alert(error.message)
+
+        }
     }
 
 
@@ -42,6 +53,8 @@ export default function TaskDetails() {
             <p><strong>DATA:</strong>{new Date(task.createdAt).toLocaleDateString()}</p>
 
             <button onClick={() => setShowModal(true)}>elimina la task</button>
+            <button onClick={() => setShowEditModal(true)}>modifica la task</button>
+
 
             {/* modale per eliminare la task */}
             <Modal
@@ -50,6 +63,15 @@ export default function TaskDetails() {
                 show={showModal}
                 onClose={() => setShowModal(false)}
                 onConfirm={handleDelete}
+            />
+
+            <EditModal
+                key={task.id}
+                task={task}
+                show={showEditModal}
+                onClose={() => setShowEditModal(false)}
+                onSave={handleUpdate}
+
             />
         </>
     )

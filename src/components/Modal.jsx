@@ -10,7 +10,7 @@ export default function Modal({ title, content, show, onClose, onConfirm, confir
                 {content}
             </div>
             <br />
-            <button onClick={onClose}>salva la task</button>
+            <button onClick={onClose}>annulla</button>
             <button onClick={onConfirm}>{confirmText}</button>
         </div>,
         document.body
