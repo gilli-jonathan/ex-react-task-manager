@@ -1,6 +1,6 @@
 import { createPortal } from "react-dom"
 
-export default function Modal({ title, content, show, onClose, onConfirm, confirmText = 'voglio eliminarla' }) {
+export default function Modal({ title, content, show, onClose, onConfirm, confirmText = 'sono sicuro, procedi' }) {
 
     if (!show) return null
     return createPortal(
@@ -15,7 +15,5 @@ export default function Modal({ title, content, show, onClose, onConfirm, confir
         </div>,
         document.body
     )
-
-
 
 }

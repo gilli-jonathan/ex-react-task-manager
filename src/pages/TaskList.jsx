@@ -27,11 +27,12 @@ export default function TaskList() {
 
     const sortIcon = sortOrder === 1 ? '⬇️' : '⬆️'
 
-    const handleSort = (field) => {
-        if (sortBy === field) {
+    const handleSort = (campo) => {
+        //decide il campo e come
+        if (sortBy === campo) {
             setSortOrder(prev => prev * -1)
         } else {
-            setSortBy(field)
+            setSortBy(campo)
             setSortOrder(1)
         }
     }
@@ -49,7 +50,7 @@ export default function TaskList() {
                 } else if (sortBy === 'status') {
                     const statusOption = ['To do', 'Doing', 'Done']
                     comparison = statusOption.indexOf(a.status) - statusOption.indexOf(b.status)
-                } else if (sortBy === 'created At') {
+                } else if (sortBy === 'createdAt') {
                     const dateA = new Date(a.createdAt).getTime()
                     const dateB = new Date(b.createdAt).getTime()
                     comparison = dateA - dateB
@@ -84,8 +85,8 @@ export default function TaskList() {
                         <th onClick={() => handleSort('status')}>
                             stato {sortBy === 'status' && sortIcon}
                         </th>
-                        <th onClick={() => handleSort('createAt')}>
-                            data creazione {sortBy === 'createAt' && sortIcon}
+                        <th onClick={() => handleSort('createdAt')}>
+                            data creazione {sortBy === 'createdAt' && sortIcon}
                         </th>
                     </tr>
                 </thead>

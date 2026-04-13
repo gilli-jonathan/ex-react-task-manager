@@ -9,3 +9,27 @@
 .done {
     background-color: rgba(55, 156, 60, 0.37);
 }
+
+table {
+    margin-top: 2rem;
+
+    th {
+        text-align: center;
+        border: 1px solid black;
+        padding: 1rem;
+
+        cursor: pointer;
+    }
+
+    td {
+        text-align: center;
+        border: 1px solid black;
+        padding: 1rem;
+    }
+
+
+
+
+
+
+}
